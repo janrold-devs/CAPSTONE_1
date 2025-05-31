@@ -1,0 +1,70 @@
+'use client';
+
+import React, { useState } from "react";
+import { Plus } from "lucide-react";
+import { ingredients } from "../../data/ingredients";
+import { filterIngredients } from "../../utils/ingredients";
+import { ExportButtons } from "../../components/ingredients/ExportButtons";
+import { SearchInput } from "../../components/ingredients/SearchInput";
+import { IngredientRow } from "../../components/ingredients/IngredientRow";
+import { TableHeader } from "../../components/ingredients/TableHeader";
+
+function Page() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const filteredIngredients = filterIngredients(ingredients, searchTerm);
+
+  return (
+    <div className="bg-white w-full h-full p-6 rounded-xl shadow-md flex flex-col">
+      <h1 className="text-2xl font-semibold mb-4 text-gray-600">Ingredients & Materials</h1>
+      
+      <button className="bg-[#ed9e7f] text-white px-2 py-2 rounded mb-4 flex items-center w-fit cursor-pointer transition hover:bg-[#e58e6f]">
+        <Plus className="inline mr-2" size={18} />
+        Add Ingredient
+      </button>
+      
+      <div className="mb-4 border-t-1 border-gray-300 pt-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+          <ExportButtons />
+          <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        </div>
+      </div>
+
+      <div className="border-2 rounded-lg overflow-hidden flex-grow">
+        <div className="overflow-auto h-full">
+          <table className="w-full">
+            <TableHeader />
+            <tbody>
+              {filteredIngredients.length > 0 ? (
+                filteredIngredients.map((ingredient, index) => (
+                  <IngredientRow key={`${ingredient.id}-${index}`} ingredient={ingredient} index={index} />
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="9" className="p-4 text-center text-gray-500">
+                    No ingredients found matching your search
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div className="mt-4 flex justify-between items-center">
+        <div className="text-gray-600 text-sm">
+          Showing {filteredIngredients.length} of {ingredients.length} ingredients
+        </div>
+        <div className="flex space-x-2">
+          <button className="px-3 py-1 border border-gray-300 rounded bg-white text-gray-700 hover:bg-gray-50">
+            Previous
+          </button>
+          <button className="px-3 py-1 border border-gray-300 rounded bg-[#ed9e7f] text-white hover:bg-[#e58e6f]">
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Page;
