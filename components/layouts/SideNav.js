@@ -97,14 +97,14 @@ export default function SideNav() {
           icon={<Utensils size={20} />}
         />
         <NavItem
-          href="/stock"
+          href="/stocks"
           label="Stock In"
           collapsed={sidebarCollapsed}
           icon={<MonitorCheck size={20} />}
         />
         <NavItem
           href="/expired"
-          label="Expired"
+          label="Spoiled & Damaged"
           collapsed={sidebarCollapsed}
           icon={<MilkOff size={20} />}
         />
@@ -156,7 +156,7 @@ function NavItem({ href, icon, label, collapsed }) {
   return (
     <a
       href={href}
-      className="flex items-center p-3 rounded-lg hover:bg-[#eab9a5] transition-colors group relative"
+      className="flex items-center p-3 rounded-lg hover:bg-[#eab9a5] transition-colors group relative overflow-hidden"
       title={collapsed ? label : ""}
     >
       <span className="text-lg">{icon}</span>

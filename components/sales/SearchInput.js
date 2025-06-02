@@ -6,7 +6,7 @@ export const SearchInput = ({ searchTerm, setSearchTerm }) => (
     <input
       id="searchInput"
       type="text"
-      placeholder="Search ingredients..."
+      placeholder="Search sales..."
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
       className="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#d7d2cf] text-black"

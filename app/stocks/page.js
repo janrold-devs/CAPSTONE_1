@@ -2,69 +2,49 @@
 
 import React, { useState } from "react";
 import { Plus } from "lucide-react";
-import { filterProducts, getStatusColor } from "../../utils/products";
-import { ExportButtons } from "../../components/products/ExportButtons";
-import { SearchInput } from "../../components/products/SearchInput";
-import { ProductRow } from "../../components/products/ProductRow";
-import { TableHeader } from "../../components/products/TableHeader";
-import { AddModal } from "@/components/products/AddModal";
+import { stockins } from "../../data/stockins";
+import { filterStocks } from "../../utils/stocks";
+import { ExportButtons } from "../../components/stocks/ExportButtons";
+import { SearchInput } from "../../components/stocks/SearchInput";
+import { StockRow } from "../../components/stocks/StockRow";
+import { TableHeader } from "../../components/stocks/TableHeader";
 
 function Page() {
-  const [productsData, setProductsData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const filteredProducts = filterProducts(productsData, searchTerm);
+  const filteredStocks = filterStocks(stockins, searchTerm);
 
   return (
     <div className="bg-white w-full h-full p-6 rounded-xl shadow-md flex flex-col">
       <h1 className="text-2xl font-semibold mb-4 text-gray-600">
-        Product List
+        Stock In List
       </h1>
-
-      <button
-        className="bg-[#ed9e7f] text-white px-2 py-2 rounded mb-4 flex items-center w-fit cursor-pointer transition hover:bg-[#e58e6f]"
-        onClick={() => setIsModalOpen(true)}
-      >
+      <button className="bg-[#ed9e7f] text-white px-2 py-2 rounded mb-4 flex items-center w-fit cursor-pointer transition hover:bg-[#e58e6f]">
         <Plus className="inline mr-2" size={18} />
-        Add Product
+        Add Stock
       </button>
-
-      <AddModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onAdd={(newProduct) => {
-          setProductsData((prev) => [...prev, newProduct]);
-          setIsModalOpen(false);
-        }}
-      />
-
-      {/* Search and Export Controls */}
-      <div className="mb-4 border-t-2 border-gray-300 pt-4">
+      <div className="mb-4 border-t-1 border-gray-300 pt-4">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
           <ExportButtons />
           <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
       </div>
-
-      {/* Scrollable Table Container */}
       <div className="border-2 rounded-lg overflow-hidden flex-grow">
         <div className="overflow-auto h-full">
-          <table className="w-full table-auto text-sm">
+          <table className="w-full">
             <TableHeader />
             <tbody>
-              {filteredProducts.length > 0 ? (
-                filteredProducts.map((product, index) => (
-                  <ProductRow
-                    key={product.id}
-                    product={product}
+              {filteredStocks.length > 0 ? (
+                filteredStocks.map((stock, index) => (
+                  <StockRow
+                    key={`${stock.id}-${index}`}
+                    stock={stock}
                     index={index}
                   />
                 ))
               ) : (
                 <tr>
                   <td colSpan="9" className="p-4 text-center text-gray-500">
-                    No products found matching your search
+                    No stocks found matching your search
                   </td>
                 </tr>
               )}
@@ -73,10 +53,9 @@ function Page() {
         </div>
       </div>
 
-      {/* Pagination Controls */}
       <div className="mt-4 flex justify-between items-center">
         <div className="text-gray-600 text-sm">
-          Showing {filteredProducts.length} of {productsData.length} products
+          Showing {filteredStocks.length} of {stockins.length} stocks
         </div>
         <div className="flex space-x-2">
           <button className="px-3 py-1 border border-gray-300 rounded bg-white text-gray-700 hover:bg-gray-50">

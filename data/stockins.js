@@ -9,7 +9,7 @@ export const stockins = [
         id: 2,
         batch: "20200102",
         name: "Staff",
-        date: "Mar. 2, 2024",
+        date: "May 2, 2024",
     },
     {
         id: 3,
@@ -27,6 +27,6 @@ export const stockins = [
         id: 5,
         batch: "20200105",
         name: "Admin",
-        date: "Mar. 5, 2024",
+        date: "Dec. 5, 2024",
     },
 ]
