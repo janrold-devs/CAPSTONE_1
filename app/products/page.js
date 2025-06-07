@@ -11,10 +11,34 @@ import { AddModal } from "@/components/products/AddModal";
 
 function Page() {
   const [productsData, setProductsData] = useState([]);
+  const [editProduct, setEditProduct] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredProducts = filterProducts(productsData, searchTerm);
+  
+  const handleDeleteProduct = (id) => {
+    setProductsData((prev) => prev.filter((p) => p.id !== id));
+  };
+  
+  const handleEditProduct = (product) => {
+    setEditProduct(product);
+    setIsModalOpen(true);
+  };
+
+  // Dynamic title based on search
+  const getExportTitle = () => {
+    return searchTerm 
+      ? `Products Report - (${filteredProducts.length} items)`
+      : `Products Report (${filteredProducts.length} items)`;
+  };
+
+  // Dynamic filename based on search
+  const getExportFilename = () => {
+    return searchTerm 
+      ? `products_${searchTerm.replace(/\s+/g, '_').toLowerCase()}`
+      : 'products_list';
+  };
 
   return (
     <div className="bg-white w-full h-full p-6 rounded-xl shadow-md flex flex-col">
@@ -23,7 +47,7 @@ function Page() {
       </h1>
 
       <button
-        className="bg-[#ed9e7f] text-white px-2 py-2 rounded mb-4 flex items-center w-fit cursor-pointer transition hover:bg-[#e58e6f]"
+        className="bg-blue-600 hover:bg-blue-400 text-white px-2 py-2 rounded mb-4 flex items-center w-fit cursor-pointer transition rounded-sm"
         onClick={() => setIsModalOpen(true)}
       >
         <Plus className="inline mr-2" size={18} />
@@ -32,17 +56,33 @@ function Page() {
 
       <AddModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onAdd={(newProduct) => {
-          setProductsData((prev) => [...prev, newProduct]);
+        onClose={() => {
           setIsModalOpen(false);
+          setEditProduct(null);
         }}
+        onAdd={(product) => {
+          setProductsData((prev) => {
+            const exists = prev.some((p) => p.id === product.id);
+            return exists
+              ? prev.map((p) => (p.id === product.id ? product : p)) // update
+              : [...prev, product]; // add new
+          });
+          setIsModalOpen(false);
+          setEditProduct(null);
+        }}
+        productToEdit={editProduct}
+        existingProducts={productsData}
       />
 
       {/* Search and Export Controls */}
       <div className="mb-4 border-t-2 border-gray-300 pt-4">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-          <ExportButtons />
+          <ExportButtons
+            data={filteredProducts}  // Changed from productsData to filteredProducts
+            filename={getExportFilename()}  // Dynamic filename
+            title={getExportTitle()}  // Dynamic title
+            excludeColumns={['image']}  // Exclude image column
+          />
           <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
       </div>
@@ -59,6 +99,8 @@ function Page() {
                     key={product.id}
                     product={product}
                     index={index}
+                    onEdit={handleEditProduct}
+                    onDelete={handleDeleteProduct}
                   />
                 ))
               ) : (

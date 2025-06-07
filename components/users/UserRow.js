@@ -1,20 +1,17 @@
 import { SquarePen, Trash2 } from "lucide-react";
 
 export const UserRow = ({ user, index }) => (
-  <tr className={`border-b ${index % 2 === 0 ? "bg-[#f4ebe5]" : "bg-white"}`}>
-    <td className="text-center py-4 px-2 border-r border-gray-200 text-black">
-      {user.id}
-    </td>
-    <td className="text-left py-4 px-2 border-r border-gray-200 text-black">
-      {user.username}
-    </td>
-    <td className="text-left py-4 px-2 border-r border-gray-200 text-black">
+  <tr className={`border-b`}>
+    <td className="text-justify py-4 px-2 border-r border-gray-200 text-black">
       {user.first_name}
     </td>
-    <td className="text-left py-4 px-2 border-r border-gray-200 text-black">
+    <td className="text-justify py-4 px-2 border-r border-gray-200 text-black">
       {user.last_name}
     </td>
-    <td className="text-left py-4 px-2 border-r border-gray-200 text-black">
+    <td className="text-center py-4 px-2 border-r border-gray-200 text-black">
+      {user.username}
+    </td>
+    <td className="text-center py-4 px-2 border-r border-gray-200 text-black">
       {user.email}
     </td>
     <td className="text-center py-4 px-2 border-r border-gray-200 text-black">

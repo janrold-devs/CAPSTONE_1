@@ -15,7 +15,7 @@ export const transactions = [
         category: 'Coffee',
         price: 45.00,
         quantity: 2,
-        mop: 'Card',
+        mop: 'Cash',
     },
     {
         id: 3,
@@ -33,7 +33,7 @@ export const transactions = [
         category: 'Coffee',
         price: 55.00,
         quantity: 1,
-        mop: 'Card',
+        mop: 'Cash',
     },
     {
         id: 5,

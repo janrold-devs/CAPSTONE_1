@@ -17,7 +17,7 @@ function Page() {
     <div className="bg-white w-full h-full p-6 rounded-xl shadow-md flex flex-col">
       <h1 className="text-2xl font-semibold mb-4 text-gray-600">Spoiled and Damaged List</h1>
       
-      <button className="bg-[#ed9e7f] text-white px-2 py-2 rounded mb-4 flex items-center w-fit cursor-pointer transition hover:bg-[#e58e6f]">
+      <button className="bg-blue-600 hover:bg-blue-400 text-white px-2 py-2 rounded mb-4 flex items-center w-fit cursor-pointer transition">
         <Plus className="inline mr-2" size={18} />
         Add spoiled or Damaged Item
       </button>

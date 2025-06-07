@@ -1,11 +1,8 @@
 import { SquarePen, Trash2 } from "lucide-react";
 import { getStatusColor } from "../../utils/products";
 
-export const ProductRow = ({ product, index }) => (
-  <tr className={`border-b ${index % 2 === 0 ? "bg-[#f4ebe5]" : "bg-white"}`}>
-    <td className="px-2 py-1 text-center border-r border-gray-200 text-black">
-      {product.id}
-    </td>
+export const ProductRow = ({ product, index, onEdit, onDelete }) => (
+  <tr className={`border-b`}>
     <td className="px-2 py-1 text-center border-b border-gray-200">
       <div className="flex justify-center">
         <img
@@ -26,14 +23,26 @@ export const ProductRow = ({ product, index }) => (
       {product.size}
     </td>
     <td className="px-2 py-1 text-center border-l border-b border-gray-300 text-black">
+      <span className="text-[12px]">₱ </span>
       {product.price}
     </td>
-    <td className="text-sm text-gray-700 px-2 py-1 break-words whitespace-normal text-left border-l border-b border-gray-300">
-      {Array.isArray(product.ingredients)
-        ? product.ingredients.join(", ")
-        : "-"}
+    <td className="px-2 py-1 text-left border-l border-b border-gray-300">
+      <div className="flex flex-wrap gap-1">
+        {Array.isArray(product.ingredients) &&
+        product.ingredients.length > 0 ? (
+          product.ingredients.map((ing, i) => (
+            <span
+              key={i}
+              className="bg-gray-400 text-white text-xs px-2 py-1 rounded-full"
+            >
+              {ing}
+            </span>
+          ))
+        ) : (
+          <span className="text-gray-400 text-sm">-</span>
+        )}
+      </div>
     </td>
-
     <td className="px-2 py-1 text-center border-l border-b border-gray-300 text-black">
       {product.category}
     </td>
@@ -46,10 +55,16 @@ export const ProductRow = ({ product, index }) => (
     </td>
     <td className="px-2 py-1 text-center border-l border-b border-gray-300">
       <div className="flex justify-center">
-        <button className="text-blue-500 hover:text-blue-700 flex items-center">
+        <button
+          className="text-blue-500 hover:text-blue-700 flex items-center"
+          onClick={() => onEdit(product)}
+        >
           <SquarePen className="inline mr-1" size={16} /> Edit
         </button>
-        <button className="text-red-500 hover:text-red-700 ml-4 flex items-center">
+        <button
+          className="text-red-500 hover:text-red-700 ml-4 flex items-center"
+          onClick={() => onDelete(product.id)}
+        >
           <Trash2 className="inline mr-1" size={16} /> Delete
         </button>
       </div>

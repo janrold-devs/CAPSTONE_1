@@ -19,7 +19,7 @@ function Page() {
   return (
     <div className="bg-white w-full h-full p-6 rounded-xl shadow-md flex flex-col">
       <h1 className="text-2xl font-semibold mb-4 text-gray-600">
-        Sales List
+        Sales Report
       </h1>
 
       {/* Filters Section: Date Range on top, then Export & Search below */}

@@ -2,10 +2,8 @@ import { SquarePen, Trash2 } from "lucide-react";
 import { getStatusColor, getAlertStatusColor } from "../../utils/ingredients";
 
 export const IngredientRow = ({ ingredient, index }) => (
-  <tr className={`border-b ${index % 2 === 0 ? "bg-[#f4ebe5]" : "bg-white"}`}>
-    <td className="p-2 text-center border-r border-gray-200 text-black">{ingredient.id}</td>
-    <td className="p-2 text-left border-l border-b border-gray-300 text-black">{ingredient.batch}</td>
-    <td className="p-2 text-left border-l border-b border-gray-300 text-black">{ingredient.name}</td>
+  <tr className={`border-b`}>
+    <td className="p-2 text-justify border-l border-b border-gray-300 text-black">{ingredient.name}</td>
     <td className="p-2 text-center border-l border-b border-gray-300 text-black">{ingredient.quantity}</td>
     <td className="p-2 text-center border-l border-b border-gray-300 text-black">{ingredient.unit}</td>
     <td className="p-2 text-center border-l border-b border-gray-300">
@@ -18,7 +16,7 @@ export const IngredientRow = ({ ingredient, index }) => (
         {ingredient.expired}
       </button>
     </td>
-    <td className="p-2 text-left border-l border-b border-gray-300 text-black">{ingredient.remarks}</td>
+    <td className="p-2 text-justify border-l border-b border-gray-300 text-black">{ingredient.remarks}</td>
     <td className="p-2 text-center border-l border-b border-gray-300">
       <div className="flex justify-center">
         <button className="text-blue-500 hover:text-blue-700 flex items-center">

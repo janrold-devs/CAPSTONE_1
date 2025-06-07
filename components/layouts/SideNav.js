@@ -129,7 +129,7 @@ export default function SideNav() {
           icon={<User size={20} />}
         />
         <NavItem
-          href="/logs"
+          href="/activity-logs"
           label="Activity Log"
           collapsed={sidebarCollapsed}
           icon={<Activity size={20} />}

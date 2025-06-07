@@ -1,10 +1,7 @@
 import { Trash2 } from "lucide-react";
 
 export const ExpiredRow = ({ stock, index }) => (
-  <tr className={`border-b ${index % 2 === 0 ? "bg-[#f4ebe5]" : "bg-white"}`}>
-  <td className="text-center py-4 px-2 border-r border-gray-200 text-black">
-      {index + 1}
-  </td>
+  <tr className={`border-b`}>
     <td className="text-left py-4 px-2 border-r border-gray-200 text-black">
       {stock.duty}
     </td>
